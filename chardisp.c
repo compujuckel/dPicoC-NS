@@ -32,8 +32,8 @@ void write_graph(int x,int y,int width,int height,unsigned char * pimage,int cl_
 				rx = x+(8-k)+8*j;
 				pixel = p % 2;
 				p>>=1;
-				if (pixel)	setPixel(rx,ry,cl_fg);
-				else		setPixel(rx,ry,cl_bg);
+				if (pixel)	nio_pixel_set(rx,ry,cl_fg);
+				else		nio_pixel_set(rx,ry,cl_bg);
 			}
 		}
 	}
@@ -74,7 +74,7 @@ int get_string (int x,int y,char * s,int width,int max,BOOL only_num,int clf,int
 		}
 		
 		wait_key_pressed();
-		ch = nio_getch();
+		ch = nio__getch();
 		
 		if ((ch>='a' && ch<='z' && !only_num)
 			|| (ch>='0' && ch<='9')

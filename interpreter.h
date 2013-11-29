@@ -3,6 +3,8 @@
 
 #include "platform.h"
 
+// It won't compile if I don't add this. If you have an idea why, please tell me... actually this is defined in platform.h
+#define LOCAL_TABLE_SIZE 11
 
 /* handy definitions */
 #ifndef TRUE

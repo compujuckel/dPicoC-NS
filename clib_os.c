@@ -1,4 +1,4 @@
-#include <nspireio2.h>
+#include <nspireio/nspireio.h>
 #include "interpreter.h"
 extern int lcd_type;
 
@@ -60,7 +60,7 @@ void write_graph_buf(unsigned char * scrbuf,int x,int y,int width,int height,uns
 
 void OsSetPixel(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-	setPixel(Param[0]->Val->Integer,Param[1]->Val->Integer,Param[2]->Val->Integer);
+	nio_pixel_set(Param[0]->Val->Integer,Param[1]->Val->Integer,Param[2]->Val->Integer);
 }
 void OsGetPixel(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
@@ -87,7 +87,7 @@ void OsWaitNoKey(struct ParseState *Parser, struct Value *ReturnValue, struct Va
 }
 void OsGetch(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-	ReturnValue->Val->Integer = nio_getch();
+	ReturnValue->Val->Integer = nio__getch();
 }
 void OsClrScr(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {

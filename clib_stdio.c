@@ -1,6 +1,6 @@
 /* stdio.h library for large systems - small embedded systems use clibrary.c instead */
 //#include <errno.h>
-#include <nspireio2.h>
+#include <nspireio/nspireio.h>
 
 #include "interpreter.h"
 #include "dconsole.h"
@@ -85,6 +85,8 @@ void GenericPrintf(struct ParseState *Parser, struct Value *ReturnValue, struct 
 				}
                 else
                 {
+					// It won't compile if I don't add this. If you have an idea why, please tell me... actually this is defined in platform.h
+					#define ALIGN_TYPE void * 
                     NextArg = (struct Value *)((char *)NextArg + MEM_ALIGN(sizeof(struct Value) + TypeStackSizeValue(NextArg)));
                     if (NextArg->Typ != FormatType && 
                             !((FormatType == &IntType || *FPos == 'f') && IS_NUMERIC_COERCIBLE(NextArg)) &&
@@ -237,7 +239,7 @@ void StdioFseek(struct ParseState *Parser, struct Value *ReturnValue, struct Val
 
 void StdioSetPixel (struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) 
 {
-	setPixel(Param[0]->Val->Integer,Param[1]->Val->Integer,Param[2]->Val->Integer);
+	nio_pixel_set(Param[0]->Val->Integer,Param[1]->Val->Integer,Param[2]->Val->Integer);
 }
 void StdioClrscr (struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) 
 {

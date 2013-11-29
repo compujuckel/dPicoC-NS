@@ -1,24 +1,24 @@
-#include <nspireio2.h>
+#include <nspireio/nspireio.h>
 
 static nio_console csl;
 
 void dConsoleInit ()
 {
-	// 53 columns, 29 rows. 0px offset for x/y. Background color 0 (black), foreground color 15 (white)
-	nio_InitConsole(&csl, 53, 29, 0, 0, 15,0);
+	nio_init(&csl,NIO_MAX_COLS,NIO_MAX_ROWS,0,0,NIO_COLOR_WHITE,NIO_COLOR_BLACK,TRUE);
+	nio_set_default(&csl);
 }
 void dConsoleCleanUp()
 {
-	nio_CleanUp(&csl);
+	nio_free(&csl);
 }
 
 void dConsolePut(const char * str)
 {
-	nio_PrintStr(&csl,str);
+	nio_puts(str);
 }
 void dConsolePutChar(char c)
 {
-	 nio_PrintChar(&csl,c);
+	 nio_putchar(c);
 }
 int	dPrintf	(const char *format,...)
 {
@@ -37,13 +37,13 @@ int	dPrintf	(const char *format,...)
 
 void dConsoleCls()
 {
-	nio_Clear(&csl);
+	nio_clear(&csl);
 }
 void dConsoleRefresh()
 {
-	nio_DrawConsole(&csl);
+	nio_fflush(&csl);
 }
 void dConsoleGets(char * s)
 {
-	nio_GetStr(&csl,s);
+	nio_gets(s);
 }
