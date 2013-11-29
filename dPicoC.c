@@ -84,7 +84,7 @@ int select_mode ()
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
 	char 	file_name[128];
 	FILE*	project_file 	= NULL;
@@ -93,6 +93,9 @@ int main()
 	BOOL 	start_run		= FALSE;
 	// check version
 	assert_ndless_rev(695);
+	// register file extensions
+	cfg_register_fileext("c","dPicoC");
+	cfg_register_fileext("cpj","dPicoC");
 	// load user config
 	load_config();
 	// select lcd mode
@@ -102,6 +105,17 @@ int main()
 		case CFG_LCD_GRAY  : lcd_ingray (); break;
 		case CFG_LCD_COLOR : lcd_incolor(); break;
 	}
+	
+	if(argc > 1)
+	{
+		if(strcmp(strchr(argv[1],'.'),".cpj.tns") == 0)
+		{
+			project_mode = TRUE;
+		}
+		strcpy(file_name,argv[1]);
+		start_run = TRUE;
+	}
+	
 	// selecy run mode
 	while (!start_run)
 	{
